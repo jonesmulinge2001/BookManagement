@@ -1,0 +1,30 @@
+### Create Author
+POST http://localhost:3000/authors
+Content-Type: application/json
+
+{
+  "name": "C.S. Lewis",
+  "biography": "Author of Chronicles of Narnia"
+}
+
+### Create Book
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "The Great Divorce",
+  "authorId": 1,
+  "publishedYear": 1945
+}
+
+### Get Books
+GET http://localhost:3000/books
+
+### Update Member
+PUT http://localhost:3000/members/1
+Content-Type: application/json
+
+{
+  "name": "Jonathan Mwandi",
+  "email": "jonathan@example.com"
+}
