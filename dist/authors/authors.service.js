@@ -22,15 +22,20 @@ let AuthorsService = class AuthorsService {
         return this.authors;
     }
     findOne(id) {
-        const author = this.authors.find(a => a.id === id);
-        if (author) {
+        // check if author exists
+        const author = this.authors.find((author) => author.id === id);
+        if (!author) {
+            throw new Error('Author not found');
         }
+        return author;
     }
     update(id, dto) {
-        const author = this.findOne(id);
-        if (author)
-            Object.assign(author, dto);
-        return author;
+        // check if author exists by index
+        const index = this.authors.findIndex(a => a.id === id);
+        if (index !== -1) {
+            this.authors[index] = Object.assign(Object.assign({}, this.authors[index]), dto);
+        }
+        return this.authors[index];
     }
     remove(id) {
         this.authors = this.authors.filter(a => a.id !== id);

@@ -29,14 +29,21 @@ let BooksService = class BooksService {
         return available;
     }
     update(id, updateBookDto) {
-        const book = this.findOne(id);
-        if (book) {
-            Object.assign(book, updateBookDto);
+        // check if book exists by index
+        const bookIndex = this.books.findIndex((book) => book.id === id);
+        if (bookIndex === -1) {
+            throw new Error('Book not found');
         }
-        return book;
+        // update book
+        this.books[bookIndex] = Object.assign(Object.assign({}, this.books[bookIndex]), updateBookDto);
+        return this.books[bookIndex];
     }
     remove(id) {
-        this.books = this.books.filter(book => book.id !== id);
+        // check if book exists before removing
+        const index = this.books.findIndex((book) => book.id === id);
+        if (index !== -1) {
+            this.books.splice(index, 1);
+        }
     }
 };
 exports.BooksService = BooksService;
